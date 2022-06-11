@@ -1,6 +1,6 @@
 package io.sahaj.parking.enums;
 
-public enum ParkingSize {
+public enum VehicleParkingSize {
     SMALL,
     MEDIUM,
     LARGE

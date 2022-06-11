@@ -1,9 +1,9 @@
 package io.sahaj.parking.domain;
 
-import io.sahaj.parking.enums.ParkingSize;
+import io.sahaj.parking.enums.VehicleParkingSize;
 
 public interface Vehicle {
-    ParkingSize getParkingSize();
+    VehicleParkingSize getParkingSize();
 }
 
 

@@ -1,7 +1,7 @@
 package io.sahaj.parking;
 
 import io.sahaj.parking.domain.*;
-import io.sahaj.parking.enums.ParkingSize;
+import io.sahaj.parking.enums.VehicleParkingSize;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,9 +18,9 @@ public class ParkingLotTest
     public void setup(){
 
         parkingLot=ParkingLot.builder()
-                .withCapacity(ParkingSize.SMALL,10)
-                .withCapacity(ParkingSize.MEDIUM,10)
-                .withCapacity(ParkingSize.LARGE,10)
+                .withCapacity(VehicleParkingSize.SMALL,10)
+                .withCapacity(VehicleParkingSize.MEDIUM,10)
+                .withCapacity(VehicleParkingSize.LARGE,10)
                 .build();
 
     }
@@ -91,7 +91,7 @@ public class ParkingLotTest
     public void testParkingAfterFull(){
 
         ParkingLot parkingLot=ParkingLot.builder()
-                .withCapacity(ParkingSize.MEDIUM,3)
+                .withCapacity(VehicleParkingSize.MEDIUM,3)
                 .build();
 
         parkingLot.parkVehicle(new SUV()).getSpotId();
@@ -104,7 +104,7 @@ public class ParkingLotTest
     @Test(expected = IllegalArgumentException.class)
     public void testParkingWithCapacityNotDefinedForSize(){
         ParkingLot parkingLot=ParkingLot.builder()
-                .withCapacity(ParkingSize.SMALL,3)
+                .withCapacity(VehicleParkingSize.SMALL,3)
                 .build();
 
         parkingLot.parkVehicle(new SUV()).getSpotId();
@@ -115,7 +115,7 @@ public class ParkingLotTest
     public void testParkingVehicleWithInvalidParkingSize(){
         Vehicle vehicle=new Vehicle() {
             @Override
-            public ParkingSize getParkingSize() {
+            public VehicleParkingSize getParkingSize() {
                 return null;
             }
         };

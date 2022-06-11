@@ -1,7 +1,9 @@
-package io.sahaj.parking.domain;
+package io.sahaj.parking;
 
 
-import io.sahaj.parking.enums.ParkingSize;
+import io.sahaj.parking.domain.ParkingTicket;
+import io.sahaj.parking.domain.Vehicle;
+import io.sahaj.parking.enums.VehicleParkingSize;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,15 +12,15 @@ import java.util.Map;
 
 public class ParkingLot {
 
-    private Map<ParkingSize,Integer> parkingSpace;
-    private Map<ParkingSize, List<ParkingTicket>> parkedVehicles;
+    private Map<VehicleParkingSize,Integer> parkingSpace;
+    private Map<VehicleParkingSize, List<ParkingTicket>> parkedVehicles;
 
-    public int getAvailableCapacity(ParkingSize parkingSize){
-        List<ParkingTicket> parkedVehicles = this.parkedVehicles.computeIfAbsent(parkingSize, v -> new ArrayList<ParkingTicket>());
-        return  parkingSpace.get(parkingSize)- parkedVehicles.size();
+    public int getAvailableCapacity(VehicleParkingSize vehicleParkingSize){
+        List<ParkingTicket> parkedVehicles = this.parkedVehicles.computeIfAbsent(vehicleParkingSize, v -> new ArrayList<ParkingTicket>());
+        return  parkingSpace.get(vehicleParkingSize)- parkedVehicles.size();
     }
 
-    private ParkingLot(Map<ParkingSize,Integer> parkingSpace){
+    private ParkingLot(Map<VehicleParkingSize,Integer> parkingSpace){
         this.parkingSpace=parkingSpace;
         this.parkedVehicles =new HashMap<>();
     }
@@ -29,7 +31,7 @@ public class ParkingLot {
 
     public ParkingTicket parkVehicle(Vehicle vehicle){
 
-        ParkingSize vehicleParkingSize = vehicle.getParkingSize();
+        VehicleParkingSize vehicleParkingSize = vehicle.getParkingSize();
 
         if(vehicleParkingSize ==null || !parkingSpace.containsKey(vehicleParkingSize)){
             throw new IllegalArgumentException("Cannot park vehichle with invalid vehichle size :" + vehicleParkingSize);
@@ -57,18 +59,18 @@ public class ParkingLot {
 
         }
 
-        private Map<ParkingSize,Integer> parkingSpace=new HashMap<>();
+        private Map<VehicleParkingSize,Integer> parkingSpace=new HashMap<>();
 
-        public ParkingLotBuilder withCapacity(ParkingSize parkingSize, int capacity){
+        public ParkingLotBuilder withCapacity(VehicleParkingSize vehicleParkingSize, int capacity){
 
-            if(parkingSize==null)
+            if(vehicleParkingSize ==null)
                 throw new IllegalArgumentException("Please specify valid parking size");
 
             if(capacity<0){
                 throw new IllegalArgumentException("Please specify valid parking capacity");
             }
 
-            parkingSpace.put(parkingSize,capacity);
+            parkingSpace.put(vehicleParkingSize,capacity);
 
             return this;
         }
@@ -82,4 +84,5 @@ public class ParkingLot {
         }
 
     }
+
 }

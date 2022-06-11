@@ -1,8 +1,7 @@
 package io.sahaj.parking;
 
 
-import io.sahaj.parking.domain.ParkingLot;
-import io.sahaj.parking.enums.ParkingSize;
+import io.sahaj.parking.enums.VehicleParkingSize;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -16,8 +15,8 @@ public class ParkingLotBuilderTest {
 
     @Test
     public void testParkingLotWithSomeCapacity(){
-        ParkingLot parkingLot=ParkingLot.builder().withCapacity(ParkingSize.SMALL,5).build();
-        assertEquals(parkingLot.getAvailableCapacity(ParkingSize.SMALL),5);
+        ParkingLot parkingLot=ParkingLot.builder().withCapacity(VehicleParkingSize.SMALL,5).build();
+        assertEquals(parkingLot.getAvailableCapacity(VehicleParkingSize.SMALL),5);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -28,13 +27,13 @@ public class ParkingLotBuilderTest {
 
     @Test
     public void testParkingLotWithZeroCapcity(){
-        ParkingLot parkingLot=ParkingLot.builder().withCapacity(ParkingSize.SMALL,0).build();
-        assertEquals(parkingLot.getAvailableCapacity(ParkingSize.SMALL),0);
+        ParkingLot parkingLot=ParkingLot.builder().withCapacity(VehicleParkingSize.SMALL,0).build();
+        assertEquals(parkingLot.getAvailableCapacity(VehicleParkingSize.SMALL),0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testParkingLotWithNegativeCapcity(){
-        ParkingLot parkingLot=ParkingLot.builder().withCapacity(ParkingSize.SMALL,-1).build();
+        ParkingLot parkingLot=ParkingLot.builder().withCapacity(VehicleParkingSize.SMALL,-1).build();
     }
 
 

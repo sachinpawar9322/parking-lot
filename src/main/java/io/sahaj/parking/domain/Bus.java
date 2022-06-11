@@ -1,10 +1,10 @@
 package io.sahaj.parking.domain;
 
-import io.sahaj.parking.enums.ParkingSize;
+import io.sahaj.parking.enums.VehicleParkingSize;
 
 public class Bus implements Vehicle{
     @Override
-    public ParkingSize getParkingSize() {
-        return ParkingSize.LARGE;
+    public VehicleParkingSize getParkingSize() {
+        return VehicleParkingSize.LARGE;
     }
 }
