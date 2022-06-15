@@ -3,8 +3,6 @@ package io.sahaj.parking.fee;
 import com.google.common.collect.Range;
 import io.sahaj.parking.enums.RateType;
 
-import java.math.RoundingMode;
-
 public class FeeRange{
 
     Range<Integer> hourRange;

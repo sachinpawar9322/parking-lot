@@ -1,6 +1,7 @@
 package io.sahaj.parking;
 
 import io.sahaj.parking.enums.RateType;
+import io.sahaj.parking.enums.VehicleParkingSize;
 import io.sahaj.parking.fee.FeeCalculator;
 import io.sahaj.parking.fee.FeeRange;
 import org.junit.Test;
@@ -20,9 +21,9 @@ public class FeeCalculatorTest {
 
         ranges.add(FeeRange.builder().build(10,RateType.PER_HOUR));
 
-        FeeCalculator feeCalculator = new FeeCalculator(ranges);
-
-        double fee=feeCalculator.calculateFee(10);
+        FeeCalculator feeCalculator = new FeeCalculator();
+        feeCalculator.setFeeRanges(VehicleParkingSize.SMALL,ranges);
+        double fee=feeCalculator.calculateFee(VehicleParkingSize.SMALL,10);
 
         assertEquals(100,fee,0.01);
 
@@ -35,9 +36,9 @@ public class FeeCalculatorTest {
 
         ranges.add(FeeRange.builder().build(10,RateType.FLAT));
 
-        FeeCalculator feeCalculator = new FeeCalculator(ranges);
-
-        double fee=feeCalculator.calculateFee(10);
+        FeeCalculator feeCalculator = new FeeCalculator();
+        feeCalculator.setFeeRanges(VehicleParkingSize.SMALL,ranges);
+        double fee=feeCalculator.calculateFee(VehicleParkingSize.SMALL,10);
 
         assertEquals(10,fee,0.01);
 
@@ -52,12 +53,13 @@ public class FeeCalculatorTest {
         ranges.add(FeeRange.builder().fromHour(4).toHour(12).build(60,RateType.FLAT));
         ranges.add(FeeRange.builder().fromHour(12).build(100,RateType.PER_HOUR));
 
-        FeeCalculator feeCalculator = new FeeCalculator(ranges);
+        FeeCalculator feeCalculator = new FeeCalculator();
+        feeCalculator.setFeeRanges(VehicleParkingSize.SMALL,ranges);
 
-        double fee=feeCalculator.calculateFee(10);
+        double fee=feeCalculator.calculateFee(VehicleParkingSize.SMALL,10);
         assertEquals(90,fee,0.01);
 
-        fee=feeCalculator.calculateFee(15);
+        fee=feeCalculator.calculateFee(VehicleParkingSize.SMALL,15);
         assertEquals(390,fee,0.01);
     }
 
@@ -71,13 +73,14 @@ public class FeeCalculatorTest {
         ranges.add(FeeRange.builder().fromHour(8).toHour(24).build(80,RateType.FLAT));
         ranges.add(FeeRange.builder().fromHour(24).build(100,RateType.PER_DAY));
 
-        FeeCalculator feeCalculator = new FeeCalculator(ranges);
+        FeeCalculator feeCalculator = new FeeCalculator();
+        feeCalculator.setFeeRanges(VehicleParkingSize.SMALL,ranges);
 
-        double fee=feeCalculator.calculateFee(20);
+        double fee=feeCalculator.calculateFee(VehicleParkingSize.SMALL,20);
         assertEquals(140,fee,0.01);
 
 
-        fee=feeCalculator.calculateFee(73);
+        fee=feeCalculator.calculateFee(VehicleParkingSize.SMALL,73);
         assertEquals(400,fee,0.01);
 
     }
